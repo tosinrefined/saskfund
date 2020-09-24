@@ -22,11 +22,11 @@ app.get('/', (req, res)=> {
 app.get('/api/client', (req, res) => {
     let dQuery = "SELECT * FROM client_full_information  ORDER BY CLIENT_ID";
     con.connect(err =>{
-        if (err) throw err;
+        
         con.query(dQuery, (err, result, fields) => {
         if (err) throw err;
         clients = result;
-        res.send(JSON.stringify(clients));
+        res.json(clients);
         });
     });//ends my connet.
 
@@ -52,8 +52,7 @@ app.get('/api/client/:id', (req, res) => {
         //if not found send a status 404 
         if(!clients)
             res.status(404).send('<div style="color:red">The client id does not exist in database</div>');
-        res.send(JSON.stringify(clients));
-        //res.send(dQuery);
+        res.json(clients);
         
         });
     });//ends my connet.
@@ -84,9 +83,7 @@ app.get('/api/eligibility/:id', (req, res) => {
             //if not found send a status 404 
             if(!clients)
                 res.status(404).send('<div style="color:red">The client id does not exist in database</div>');
-            res.send(JSON.stringify(clients));
-            //res.send(dQuery);
-            
+                res.json(clients);            
             });
         });//ends my connet.
     }
